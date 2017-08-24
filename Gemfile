@@ -13,6 +13,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
+gem 'bcrypt'
 
 group :development, :test do
   gem 'factory_girl_rails'
@@ -26,8 +27,10 @@ group :development do
 end
 
 group :test do
-  gem 'database_cleaner'
   gem 'capybara'
+  gem 'database_cleaner'
+  gem 'rails-controller-testing'
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
