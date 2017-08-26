@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :update]
   resources :leagues, only: [:new, :create, :show, :edit, :update], param: :slug do
     scope module: :leagues do
-      resources :seasons
+      resources :seasons, except: [:destroy] do
+        scope module: :seasons do
+          resources :games, except: [:destroy]
+        end
+      end
     end
   end
 
