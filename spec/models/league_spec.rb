@@ -10,5 +10,13 @@ describe League, type: :model do
 
   context 'relationships' do
     it { should belong_to :user }
+    it { should have_many :seasons }
+  end
+
+  context 'methods' do
+    it 'creates an initial season with the league' do
+      league = create(:league)
+      expect(league.seasons.count).to eq(1)
+    end
   end
 end
