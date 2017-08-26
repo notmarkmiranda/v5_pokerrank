@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824134522) do
+ActiveRecord::Schema.define(version: 20170826151914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "games", force: :cascade do |t|
+    t.date "date"
+    t.integer "buy_in"
+    t.boolean "completed", default: false
+    t.bigint "season_id"
+    t.integer "attendees"
+    t.index ["season_id"], name: "index_games_on_season_id"
+  end
 
   create_table "leagues", force: :cascade do |t|
     t.string "name"
@@ -39,6 +48,7 @@ ActiveRecord::Schema.define(version: 20170824134522) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "games", "seasons"
   add_foreign_key "leagues", "users"
   add_foreign_key "seasons", "leagues"
 end
