@@ -6,6 +6,7 @@ class League < ApplicationRecord
   belongs_to :user
   has_many :seasons
   has_many :games, through: :seasons
+  has_many :players, through: :games
 
   before_validation :set_slug
   after_create_commit :create_initial_season

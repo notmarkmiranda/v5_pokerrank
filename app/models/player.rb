@@ -6,4 +6,5 @@ class Player < ApplicationRecord
   belongs_to :participant
   belongs_to :game
   delegate :user, to: :participant
+  delegate :league, to: :game
 end
