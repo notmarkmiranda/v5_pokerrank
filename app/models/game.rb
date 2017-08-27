@@ -5,4 +5,5 @@ class Game < ApplicationRecord
 
   belongs_to :season
   delegate :league, to: :season
+  has_many :players
 end

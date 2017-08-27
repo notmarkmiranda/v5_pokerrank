@@ -14,5 +14,6 @@ describe Game, type: :model do
       game = create(:game, season: league.seasons.first)
       expect(game.league).to eq(league)
     end
+    it { should have_many :players }
   end
 end
