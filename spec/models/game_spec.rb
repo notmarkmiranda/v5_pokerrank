@@ -9,5 +9,10 @@ describe Game, type: :model do
 
   context 'relationships' do
     it { should belong_to :season }
+    it 'should have a league' do
+      league = create(:league)
+      game = create(:game, season: league.seasons.first)
+      expect(game.league).to eq(league)
+    end
   end
 end
