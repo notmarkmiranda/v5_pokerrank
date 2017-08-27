@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     end
   end
   resources :participants
+  resources :players
 
   get '/dashboard', to: 'users#show', as: 'dashboard'
   get '/edit-profile', to: 'users#edit', as: 'edit_profile'
