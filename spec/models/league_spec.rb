@@ -12,6 +12,7 @@ describe League, type: :model do
     it { should belong_to :user }
     it { should have_many :seasons }
     it { should have_many(:games).through(:seasons) }
+    it { should have_many(:players).through(:games) }
   end
 
   context 'methods' do

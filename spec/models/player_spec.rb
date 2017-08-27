@@ -19,5 +19,14 @@ describe Player, type: :model do
       player = create(:player, participant: participant)
       expect(player.user).to eq(user)
     end
+
+    it 'should belong to a league' do
+      league = create(:league)
+      season = league.seasons.first
+      game = create(:game, season:season)
+      player = create(:player, game: game)
+
+      expect(player.league).to eq(league)
+    end
   end
 end
