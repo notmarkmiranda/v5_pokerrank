@@ -13,5 +13,11 @@ describe Player, type: :model do
   context 'relationships' do
     it { should belong_to :participant }
     it { should belong_to :game }
+    it 'should belong to a user' do
+      user = create(:user)
+      participant = create(:participant, user: user)
+      player = create(:player, participant: participant)
+      expect(player.user).to eq(user)
+    end
   end
 end
