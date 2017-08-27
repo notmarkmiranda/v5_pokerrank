@@ -11,6 +11,7 @@ describe League, type: :model do
   context 'relationships' do
     it { should belong_to :user }
     it { should have_many :seasons }
+    it { should have_many(:games).through(:seasons) }
   end
 
   context 'methods' do
