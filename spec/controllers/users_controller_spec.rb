@@ -7,6 +7,12 @@ describe UsersController, type: :controller do
       expect(response).to render_template :new
     end
 
+    it 'GET#new - sad path, user signed in' do
+      user = create(:user)
+      get :new, session: { user_id: user.id }
+      expect(response).to redirect_to root_path
+    end
+
     it 'POST#create' do
       attrs = attributes_for(:user)
       expect {

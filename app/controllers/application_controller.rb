@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
   def require_user
     redirect_to root_path unless current_user
   end
+
+  def no_user_allowed
+    redirect_to root_path if current_user
+  end
 end

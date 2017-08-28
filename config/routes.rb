@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'pages#index'
 
-  resources :users, only: [:new, :create, :update]
+  resources :users, only: [:create, :update]
   resources :leagues, only: [:new, :create, :show, :edit, :update], param: :slug do
     scope module: :leagues do
       resources :seasons, except: [:destroy] do
@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :participants
   resources :players
 
+  get 'sign-up', to: 'users#new', as: 'sign_up'
   get '/dashboard', to: 'users#show', as: 'dashboard'
   get '/edit-profile', to: 'users#edit', as: 'edit_profile'
 end
