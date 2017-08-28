@@ -10,7 +10,7 @@ describe UsersController, type: :controller do
     it 'GET#new - sad path, user signed in' do
       user = create(:user)
       get :new, session: { user_id: user.id }
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to not_found_path
     end
 
     it 'POST#create' do
