@@ -11,6 +11,10 @@ class League < ApplicationRecord
   before_validation :set_slug
   after_create_commit :create_initial_season
 
+  def to_param
+    self.slug if slug
+  end
+
   private
 
   def create_initial_season

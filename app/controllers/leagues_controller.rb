@@ -38,6 +38,7 @@ class LeaguesController < ApplicationController
 
   def load_league
     @league = League.find_by(slug: params[:slug])
+    redirect_to root_path if @league.nil?
   end
 
   def verify_ownership
