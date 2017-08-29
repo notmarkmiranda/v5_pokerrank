@@ -51,7 +51,7 @@ describe LeaguesController, type: :controller do
 
     it 'PATCH#update - happy path' do
       patch :update, params: { slug: @league.slug, league: { name: 'testing-123' } }
-      expect(response).to redirect_to @league
+      expect(response).to redirect_to @league.reload
     end
 
     it 'PATCH#update - sad path' do

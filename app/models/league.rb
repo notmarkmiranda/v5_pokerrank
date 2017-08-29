@@ -22,6 +22,6 @@ class League < ApplicationRecord
   end
 
   def set_slug
-    self.slug ||= name.parameterize if name
+    self.slug = name.parameterize if name
   end
 end
