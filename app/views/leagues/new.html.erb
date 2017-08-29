@@ -3,13 +3,7 @@
     <div class="card">
       <h4 class="card-header">Create a League!</h4>
       <div class="card-body">
-      <%= form_for @league do |f| %>
-        <div class="form-group">
-          <%= f.label :name, 'League Name' %>
-          <%= f.text_field :name, placeholder: 'League Name', class: 'form-control' %>
-        </div>
-        <%= f.submit 'Create League!', class: 'btn btn-outline-success' %>
-      <% end %>
+      <%= render partial: "form", locals: { button_text: 'Create League!' } %>
       </div>
     </div>
   </div>
