@@ -1,11 +1,12 @@
 class Leagues::Seasons::GamesController < ApplicationController
-  before_action :load_season, only: [:create, :update]
+  before_action :load_season, only: [:new, :create, :update]
   before_action :load_game, only: [:show, :edit, :update]
 
   def show
   end
 
   def new
+    @game = @season.games.new
   end
 
   def create

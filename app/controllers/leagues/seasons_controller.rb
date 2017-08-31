@@ -2,6 +2,7 @@ class Leagues::SeasonsController < ApplicationController
   before_action :load_league, only: [:new, :create, :show, :edit, :update]
   before_action :load_season, only: [:show, :edit, :update]
   before_action :verify_league_ownership, only: [:new]
+  before_action :verify_season_ownership, only: [:show]
 
   def show
   end
@@ -43,5 +44,9 @@ class Leagues::SeasonsController < ApplicationController
 
   def verify_league_ownership
     redirect_to root_path unless current_user && (@league.user_id == current_user.id)
+  end
+
+  def verify_season_ownership
+    redirect_to root_path unless @season.league == @league
   end
 end

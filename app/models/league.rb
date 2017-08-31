@@ -11,6 +11,14 @@ class League < ApplicationRecord
   before_validation :set_slug
   after_create_commit :create_initial_season
 
+  def active_season
+    seasons.where(active: true).last
+  end
+
+  def has_active_season?
+    seasons.any? { |season| season.active == true }
+  end
+
   def to_param
     self.slug if slug
   end
