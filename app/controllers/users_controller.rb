@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   before_action :load_user, only: [:show, :edit, :update]
   before_action :no_user_allowed, only: [:new]
 
+  def show
+  end
+
   def new
     @user = User.new
   end

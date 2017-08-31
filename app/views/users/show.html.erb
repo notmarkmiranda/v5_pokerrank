@@ -1,1 +1,35 @@
-<%= link_to "+ Create a New League", new_league_path, class: 'btn btn-primary' %>
+<div class="actions">
+  <%= link_to "+ Create a New League", new_league_path, class: 'btn btn-primary' %>
+</div>
+
+<% @user.leagues.each do |league| %>
+  <div class="league-list-group list-group">
+    <div class="list-group-item">
+      <h4><%= league.name.titleize %></h4>
+      <div class="league-actions">
+        <%= link_to "Edit Name", edit_league_path(league), class: 'btn btn-outline-info' %>
+        <%= link_to "Deactivate", "#", class: 'btn btn-outline-danger' %>
+      </div>
+    </div>
+    <div class="list-group-item">
+      <ul>
+        <li>Total Games: 5</li>
+        <ul>
+          <li>Scheduled Games: 2</li>
+          <li>Completed Games: 3</li>
+        </ul>
+        <li>Unique Players: 19</li>
+        <li>Seasons: 1</li>
+        <ul>
+          <li>Current Season Start: January 1, 2017</li>
+        </ul>
+        <li>Pot Size: $150</li>
+        <li>Best Players</li>
+        <ul>
+          <li>Overall: Mark Miranda</li>
+          <li>Current: Mike Cassano</li>
+        </ul>
+      </ul>
+    </div>
+  </div>
+<% end %>
