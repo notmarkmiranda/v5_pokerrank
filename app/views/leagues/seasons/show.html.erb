@@ -1,0 +1,6 @@
+<%= @season.league.name %>
+<% if @league.has_active_season? %>
+  <%= link_to "Schedule Game", new_league_season_game_path(@league, @league.active_season), class: 'btn btn-outline-info' %>
+<% else %>
+  <%= button_to "Create New Season", league_seasons_path(@league, season: { active: true }), class: 'btn btn-outline-info new-season-btn', form: { class: 'new-season' } %>
+<% end %>
