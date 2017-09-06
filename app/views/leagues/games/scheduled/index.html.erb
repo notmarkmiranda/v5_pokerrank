@@ -1,0 +1,24 @@
+<h4>Scheduled Games</h4>
+<table class="table table-responsive">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Date</th>
+      <th>Buy In Amount</th>
+      <th>Attendees</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @games.each_with_index do |game, index| %>
+    <tr>
+      <th scope="row"><%= index + 1 %></th>
+      <td><%= game.formatted_date %></td>
+      <td><%= number_to_currency(game.buy_in) %></td>
+      <td><%= game.players_or_attendees %></td>
+      <td><%= link_to "Score Game", "#", class: 'btn btn-outline-success btn-sm' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

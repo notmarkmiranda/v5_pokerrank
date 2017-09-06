@@ -12,10 +12,47 @@ a.custom-link {
   margin-top: 30px;
 }
 
-form.new-season {
-  display: inline-block;
+.league-button {
+  margin-bottom: 10px
 }
 
 .new-season-btn {
   cursor: pointer;
+}
+
+.league-index__detail-actions {
+  color: lightgray;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1.2px;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.schedule-link {
+  display: inline-block;
+  &.scheduled-disabled {
+    cursor: not-allowed;
+  }
+}
+
+.no-games {
+  pointer-events: none;
+}
+
+form.new-season {
+  display: inline-block;
+}
+
+.no-user {
+  display: none;
+}
+
+.league-title {
+  color: darkgray;
+  &:hover {
+    color: lightgray;
+    text-decoration: none;
+  }
 }
