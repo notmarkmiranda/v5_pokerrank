@@ -1,25 +1,27 @@
 <div class="league__show-page card" >
   <h4 class="card-header">
     <%= @league.name.titleize %>
-    <hr>
-    <div class="league__show-actions">
-      <% if @league.has_active_season? %>
-        <%= link_to "Schedule Game", new_league_season_game_path(@league, @league.active_season), class: 'btn btn-outline-info' %>
-      <% else %>
-        <%= button_to "Create New Season", league_seasons_path(@league, season: { active: true }), class: 'btn btn-outline-info new-season-btn', form: { class: 'new-season' } %>
+    <% if current_user %>
+      <hr>
+      <div class="league__show-actions">
+        <% if @league.has_active_season? %>
+          <%= link_to "Schedule Game", new_league_season_game_path(@league, @league.active_season), class: 'btn btn-outline-info' %>
+        <% else %>
+          <%= button_to "Create New Season", league_seasons_path(@league, season: { active: true }), class: 'btn btn-outline-info new-season-btn', form: { class: 'new-season' } %>
+      <% end %>
+      <%= link_to "Edit League Name", edit_league_path(@league), class: 'btn btn-outline-info' %>
+      <%= link_to "Deactivate League", "#", class: 'btn btn-outline-danger' %>
+      </div>
     <% end %>
-    <%= link_to "Edit League Name", edit_league_path(@league), class: 'btn btn-outline-info' %>
-    <%= link_to "Deactivate League", "#", class: 'btn btn-outline-danger' %>
-    </div>
   </h4>
   <div class="card-body">
 
     <% @league.seasons.each do |season| %>
     <br />
-    <%= season.id %> ---
-    <% season.games.each do |game| %>
-    <%= game.date %><br />
-    <% end %>
+      <%= season.id %> ---
+      <% season.games.each do |game| %>
+        <%= game.date %><br />
+      <% end %>
     <% end %>
   </div>
 </div>

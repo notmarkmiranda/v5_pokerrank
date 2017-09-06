@@ -15,8 +15,32 @@ class League < ApplicationRecord
     seasons.where(active: true).last
   end
 
+  def completed_games_count
+    games.where(completed: true).count
+  end
+
+  def has_uncompleted_game?
+    games.any? { |game| game.completed == false }
+  end
+
   def has_active_season?
     seasons.any? { |season| season.active == true }
+  end
+
+  def games_count
+    games.count
+  end
+
+  def participants_count
+    players.pluck(:participant_id).uniq.count
+  end
+
+  def seasons_count
+    seasons.count
+  end
+
+  def scheduled_games_count
+    games.where(completed: false).count
   end
 
   def to_param

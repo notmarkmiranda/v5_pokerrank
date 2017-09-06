@@ -1,30 +1,53 @@
 <div class="actions">
   <%= link_to "+ Create a New League", new_league_path, class: 'btn btn-primary' %>
+  <%= link_to "+ Create a New Player", new_participant_path, class: 'btn btn-success' %>
 </div>
 
 <% @user.leagues.each do |league| %>
   <div class="league-list-group list-group">
     <div class="list-group-item">
-      <h4><%= league.name.titleize %></h4>
-      <div class="league-actions">
-        <% if league.has_active_season? %>
-          <%= link_to "Schedule Game", new_league_season_game_path(league, league.active_season), class: 'btn btn-outline-info' %>
-        <% else %>
-          <%= button_to "Create New Season", league_seasons_path(league, season: { active: true }), class: 'btn btn-outline-info new-season-btn', form: { class: 'new-season' } %>
-        <% end %>
-        <%= link_to "Edit League Name", edit_league_path(league), class: 'btn btn-outline-info' %>
-        <%= link_to "Deactivate League", "#", class: 'btn btn-outline-danger' %>
+      <h4><%= link_to league.name.titleize, league_path(league), class: 'league-title' %></h4>
+
+      <div class="league-index__league-actions">
+        <div class="row">
+          <div class="col-md-4 col-sm-12 league-button">
+            <% if league.has_active_season? %>
+              <%= link_to "Schedule Game", new_league_season_game_path(league, league.active_season), class: 'btn btn-outline-info btn-block' %>
+            <% else %>
+              <%= button_to "Create New Season", league_seasons_path(league, season: { active: true }), class: 'btn btn-outline-info new-season-btn btn-block' %>
+            <% end %>
+          </div>
+          <div class="col-md-4 col-sm-12 league-button">
+            <%= link_to "Edit League Name", edit_league_path(league), class: 'btn btn-outline-info btn-block' %>
+          </div>
+          <div class="col-md-4 col-sm-12 league-button">
+            <%= link_to "Deactivate League", "#", class: 'btn btn-outline-danger btn-block' %>
+          </div>
+        </div>
+
+
       </div>
+
     </div>
+
     <div class="list-group-item">
+      <div class="league-index__league-detail">
+        <div class="detail-links">
+          <div class="schedule-link scheduled-<%= (league.has_active_season? && league.has_uncompleted_game?) ? 'enabled' : 'disabled' %>">
+            <%= link_to "Scheduled Games", league_games_scheduled_path(league_slug: league.slug), class: ["league-index__detail-actions", ("no-games" unless league.has_uncompleted_game?)] %>
+          </div> || <%= link_to "Standings", '#', class: 'league-index__detail-actions' %>
+        </div>
+      </div>
+
+    <div>
       <ul>
-        <li>Total Games: 5</li>
+        <li>Total Games: <%= league.games_count %></li>
         <ul>
-          <li>Scheduled Games: 2</li>
-          <li>Completed Games: 3</li>
+          <li>Scheduled Games: <%= league.scheduled_games_count %></li>
+          <li>Completed Games: <%= league.completed_games_count %></li>
         </ul>
-        <li>Unique Players: 19</li>
-        <li>Seasons: 1</li>
+        <li>Players: <%= league.participants_count %></li>
+        <li>Seasons: <%= league.seasons_count %></li>
         <ul>
           <li>Current Season Start: January 1, 2017</li>
         </ul>
@@ -35,6 +58,7 @@
           <li>Current: Mike Cassano</li>
         </ul>
       </ul>
+    </div>
     </div>
   </div>
 <% end %>
