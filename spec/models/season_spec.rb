@@ -8,6 +8,7 @@ describe Season, type: :model do
   context 'relationships' do
     it { should belong_to :league }
     it { should have_many :games }
+    it { should have_many(:players).through(:games) }
   end
 
   context 'methods' do

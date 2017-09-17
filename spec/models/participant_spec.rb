@@ -9,5 +9,6 @@ describe Participant, type: :model do
 
   context 'relationships' do
     it { should belong_to :user }
+    it { should have_many :players }
   end
 end

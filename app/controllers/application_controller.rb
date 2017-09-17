@@ -16,4 +16,8 @@ class ApplicationController < ActionController::Base
   def no_user_allowed
     redirect_to not_found_path if current_user
   end
+
+  def set_redirect
+    session[:redirect] = request.referrer || root_path
+  end
 end

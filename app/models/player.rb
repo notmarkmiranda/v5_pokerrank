@@ -7,4 +7,8 @@ class Player < ApplicationRecord
   belongs_to :game
   delegate :user, to: :participant
   delegate :league, to: :game
+
+  def full_name
+    participant.full_name
+  end
 end

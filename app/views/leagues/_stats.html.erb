@@ -1,0 +1,65 @@
+<div class="card-body">
+  <div class="row">
+    <div class="col">
+      <h4>CURRENT SEASON STATS</h4>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-md-4 landing-component text-center">
+
+      <div class="card stat-card text-center">
+        <div class="card-header">
+          SEASON LEADER
+        </div>
+        <div class="card-body">
+          <h4 class="season_leader_name"><%= @season_leader.full_name %></h4>
+          <h6 class="card-text">Has played in: <span class="stat"><%= pluralize(@season_leader.played_in_by_season(@active_season), 'game') %></span></h6>
+          <h6>Won or placed: <span class="stat"><%= "#{pluralize(@season_leader.won_or_placed_in_by_season(@active_season), 'game')} | #{number_to_percentage(@season_leader.won_or_placed_in_by_season_percentage(@active_season), precision: 0)}" %></span></h6>
+          <h6>Score: <span class="stat"><%= number_with_precision(@active_season.season_leader(1), precision: 2) %></span></h6>
+        </div>
+        <div class="card-footer text-muted">
+          <%= link_to "here are the losers", "#", class: 'league__footer-links' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 landing-component text-center">
+
+      <div class="card stat-card text-center">
+        <div class="card-header">
+          BIGGEST GAME
+        </div>
+        <div class="card-body">
+          <h4 class="season_leader_name"><%= @biggest_game.formatted_date %></h4>
+          <h6>Pot size: <span class="stat"><%= number_to_currency(@biggest_game.pot_size, precision: 0) %></span></h6>
+          <h6>Number of players: <span class="stat"><%= @biggest_game.players_or_attendees %></span></h6>
+          <h6>Winner: <span class="stat"><%= @biggest_game.winner.full_name %></span></h6>
+        </div>
+        <div class="card-footer text-muted">
+          <%= link_to "here are the other games", "#", class: 'league__footer-links' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 landing-component text-center">
+
+      <div class="card stat-card text-center">
+        <div class="card-header">
+          STATS
+        </div>
+        <div class="card-body">
+          <h5 class="season_leader_name"><%= @season_leader.full_name %></h5>
+          <h6>Has played in: <span class="stat"><%= pluralize(@season_leader.played_in_by_season(@active_season), 'game') %></span></h6>
+          <h6>Won or placed: <span class="stat"><%= "#{pluralize(@season_leader.won_or_placed_in_by_season(@active_season), 'game')} | #{number_to_percentage(@season_leader.won_or_placed_in_by_season_percentage(@active_season), precision: 0)}" %></span></h6>
+          <h6>Score: <span class="stat"><%= number_with_precision(@active_season.season_leader(1), precision: 2) %></span></h6>
+        </div>
+        <div class="card-footer text-muted">
+          <%= link_to "something", "#", class: 'league__footer-links' %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div> 

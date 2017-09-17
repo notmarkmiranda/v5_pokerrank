@@ -1,0 +1,20 @@
+<% if current_user %>
+<hr>
+<div class="league__show-actions">
+  <div class="row">
+    <div class="col-md-3">
+      <% if @league.has_active_season? %>
+      <%= link_to "Schedule Game", new_league_season_game_path(@league, @active_season), class: 'btn btn-outline-info btn-block pad-btn' %>
+      <% else %>
+      <%= button_to "Create New Season", league_seasons_path(@league, season: { active: true }), class: 'btn btn-outline-info btn-block new-season-btn pad-btn', form: { class: 'new-season' } %>
+      <% end %>
+    </div>
+    <div class="col-md-3">
+      <%= link_to "Edit League Name", edit_league_path(@league), class: 'btn btn-outline-info btn-block pad-btn' %>
+    </div>
+    <div class="col-md-3">
+      <%= link_to "Deactivate League", "#", class: 'btn btn-outline-danger btn-block pad-btn' %>
+    </div>
+  </div>
+</div>
+<% end %> 
