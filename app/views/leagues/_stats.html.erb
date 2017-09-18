@@ -20,7 +20,7 @@
           <h6>Score: <span class="stat"><%= number_with_precision(@active_season.season_leader(1), precision: 2) %></span></h6>
         </div>
         <div class="card-footer text-muted">
-          <%= link_to "here are the losers", league_season_players_path(@league, @active_season), class: 'league__footer-links' %>
+          <%= link_to "check out all the losers", league_season_players_path(@league, @active_season), class: 'league__footer-links' %>
         </div>
       </div>
     </div>
