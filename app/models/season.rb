@@ -12,6 +12,10 @@ class Season < ApplicationRecord
     games.max_by(&:pot_size)
   end
 
+  def games_count
+    games.count
+  end
+
   def season_leader(index=0)
     score_hash = get_scores
     reduced_scores = reduce_scores(score_hash)

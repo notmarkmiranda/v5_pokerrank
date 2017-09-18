@@ -7,10 +7,10 @@ Rails.application.routes.draw do
       get '/games/scheduled', to: 'games/scheduled#index'
       resources :seasons, except: [:destroy] do
         scope module: :seasons do
+          resources :players, only: [:index]
           resources :games, except: [:destroy] do
             scope module: :games do
               resource :score, only: [:show]
-
               resources :players, except: [:new]
             end
           end
