@@ -43,23 +43,5 @@
       </div>
     </div>
 
-    <div class="col-md-4 landing-component text-center">
-
-      <div class="card stat-card text-center">
-        <div class="card-header">
-          STATS
-        </div>
-        <div class="card-body">
-          <h5 class="season_leader_name"><%= @season_leader.full_name %></h5>
-          <h6>Has played in: <span class="stat"><%= pluralize(@season_leader.played_in_by_season(@active_season), 'game') %></span></h6>
-          <h6>Won or placed: <span class="stat"><%= "#{pluralize(@season_leader.won_or_placed_in_by_season(@active_season), 'game')} | #{number_to_percentage(@season_leader.won_or_placed_in_by_season_percentage(@active_season), precision: 0)}" %></span></h6>
-          <h6>Score: <span class="stat"><%= number_with_precision(@active_season.season_leader(1), precision: 2) %></span></h6>
-        </div>
-        <div class="card-footer text-muted">
-          <%= link_to "something", "#", class: 'league__footer-links' %>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
