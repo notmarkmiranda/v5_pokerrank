@@ -15,7 +15,7 @@ class Season < ApplicationRecord
   def season_leader(index=0)
     score_hash = get_scores
     reduced_scores = reduce_scores(score_hash)
-    get_leader(reduced_scores, index) unless reduced_scores
+    get_leader(reduced_scores, index) unless reduced_scores.keys.empty?
   end
 
   def season_number
