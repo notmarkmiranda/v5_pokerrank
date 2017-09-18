@@ -49,7 +49,7 @@
         <li>Players: <%= league.participants_count %></li>
         <li>Seasons: <%= league.seasons_count %></li>
         <ul>
-          <li>Current Season Start: January 1, 2017</li>
+          <li>Current Season Start: <%= league.active_season.season_start_date %></li>
         </ul>
         <li>Pot Size: $150</li>
         <li>Best Players</li>

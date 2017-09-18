@@ -20,14 +20,20 @@ a.custom-link {
   cursor: pointer;
 }
 
-.league-index__detail-actions {
-  color: lightgray;
+.league-index__detail-actions, .league-name-subtitle-text,
+.league-name-subtitle-label, .league-season-number-label {
+  color: darkgray;
   text-transform: uppercase;
   font-size: 13px;
   letter-spacing: 1.2px;
+  margin-bottom: 3px;
   &:hover {
     text-decoration: none;
   }
+}
+
+.league-name-subtitle-text, .league-season-number-text {
+  color: black;
 }
 
 .schedule-link {
@@ -53,6 +59,39 @@ form.new-season {
   color: darkgray;
   &:hover {
     color: lightgray;
+    text-decoration: none;
+  }
+}
+
+div.row.content-row {
+  margin: 0px;
+}
+
+.finishing-place-badge {
+  margin-right: 10px;
+}
+
+.pad-btn, .stat-card {
+  margin-bottom: 10px;
+}
+
+.season_leader, .season_leader_name {
+  text-transform: uppercase;
+}
+
+span.stat {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: dimgray;
+}
+
+.league__footer-links {
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+  color: darkgray;
+  text-transform: uppercase;
+
+  &:hover {
     text-decoration: none;
   }
 }

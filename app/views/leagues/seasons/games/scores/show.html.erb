@@ -1,0 +1,52 @@
+<div class="game-score-list-group list-group">
+  <div class="list-group-item">
+    <h4><%= @game.formatted_date %></h4>
+    <p class="league-name-subtitle-label">League: <span class="league-name-subtitle-text"><%= @game.league.name.titleize %></span></p>
+    <p class="league-season-number-label">Season: <span class="league-season-number-text">#<%= @game.season.season_number %></span></p>
+  </div>
+  <div class="list-group-item">
+    <div class="row content-row justify-content-between">
+      <div class="list-group finished-players-list col">
+        <div class="list-group-item">
+          <h5>Finished Players</h5>
+        </div>
+        <%  if @game.any_finished_players? %>
+          <% @game.finished_players.each do |player| %>
+          <div class="list-group-item d-flex align-items-center">
+            <span class="badge badge-info finishing-place-badge"><%= player.finishing_place %></span>
+            <%= player.full_name %>
+          </div>
+          <% end %>
+        <% else %>
+          <div class="list-group-item">
+            No players finished yet.
+          </div>
+        <% end %>
+      </div>
+
+      <div class="list-group col">
+        <div class="list-group-item">
+          <h5>Eliminate a Player</h5>
+        </div>
+        <div class="list-group-item">
+          <%= form_for [@game.league, @game.season, @game, @player] do |f| %>
+            <div class="form-group">
+              <%= f.label :participant_id %>
+              <%= f.select :participant_id, options_for_select(Participant.all.collect { |p| [p.full_name, p.id] }), {}, { class: 'form-control' } %>
+              <%= link_to "Create Player", "#" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :finishing_place %>
+              <%= f.select :finishing_place, options_for_select([*1..@game.attendees]), {}, { class: 'form-control' } %>
+            </div>
+            <div class="form-group">
+              <%= f.label :additional_expense %>
+              <%= f.text_field :additional_expense, class: 'form-control' %>
+            </div>
+            <%= f.submit "Eliminate!", class: 'btn btn-outline-success' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

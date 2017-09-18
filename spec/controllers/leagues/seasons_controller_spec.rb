@@ -34,7 +34,7 @@ describe Leagues::SeasonsController, type: :controller do
       attrs = attributes_for(:season)
       post :create, params: { league_slug: @league.slug, season: attrs }
 
-      expect(Season.pluck(:active)).to eq([true, false, false])
+      expect(Season.pluck(:active)).to eq([false, false, true])
     end
 
     it 'GET#show' do

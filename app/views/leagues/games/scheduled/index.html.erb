@@ -16,7 +16,7 @@
       <td><%= game.formatted_date %></td>
       <td><%= number_to_currency(game.buy_in) %></td>
       <td><%= game.players_or_attendees %></td>
-      <td><%= link_to "Score Game", "#", class: 'btn btn-outline-success btn-sm' %></td>
+      <td><%= link_to "Score Game", league_season_game_score_path(league_slug: game.league.slug, season_id: game.season.id, game_id: game.id), class: 'btn btn-outline-info btn-sm' %></td>
     </tr>
   <% end %>
   </tbody>
