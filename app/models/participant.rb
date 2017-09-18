@@ -6,6 +6,11 @@ class Participant < ApplicationRecord
 
   belongs_to :user
   has_many :players
+  has_many :games, through: :players
+
+  def place_finishes_by_season(season, place)
+    players.joins(:game).where("games.season_id = ? AND finishing_place IN (?)", season.id, place).count
+  end
 
   def full_name
     "#{first_name.titleize} #{last_name.titleize}"
@@ -13,6 +18,17 @@ class Participant < ApplicationRecord
 
   def played_in_by_season(season)
     players.joins(:game).where("games.season_id = ?", season.id).count
+  end
+
+  def played_in_by_season_percentage(season)
+    (played_in_by_season(season) / season.games_count.to_f) * 100
+  end
+
+  def self.ordered_by_total_score_by_season(season_id)
+    parts = Participant.joins(:games).where("games.season_id = ?", season_id).uniq
+    parts.map do |part|
+      [part.players.joins(:game).where("games.season_id = ?", season_id).pluck(:score).max(9).reduce(:+), part]
+    end.sort.reverse
   end
 
   def won_or_placed_in_by_season(season)
