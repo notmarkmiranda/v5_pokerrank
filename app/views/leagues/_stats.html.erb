@@ -8,7 +8,6 @@
   <div class="row">
 
     <div class="col-md-4 landing-component text-center">
-
       <div class="card stat-card text-center">
         <div class="card-header">
           SEASON LEADER
@@ -20,13 +19,12 @@
           <h6>Score: <span class="stat"><%= number_with_precision(@active_season.season_leader(1), precision: 2) %></span></h6>
         </div>
         <div class="card-footer text-muted">
-          <%= link_to "here are the losers", league_season_players_path(@league, @active_season), class: 'league__footer-links' %>
+          <%= link_to "check out all the losers", league_season_players_path(@league, @active_season), class: 'league__footer-links' %>
         </div>
       </div>
     </div>
 
     <div class="col-md-4 landing-component text-center">
-
       <div class="card stat-card text-center">
         <div class="card-header">
           BIGGEST GAME
@@ -38,10 +36,27 @@
           <h6>Winner: <span class="stat"><%= @biggest_game.winner.full_name %></span></h6>
         </div>
         <div class="card-footer text-muted">
-          <%= link_to "here are the other games", "#", class: 'league__footer-links' %>
+          <%= link_to "here are the other games", league_season_games_path(@league, @active_season), class: 'league__footer-links' %>
         </div>
       </div>
     </div>
 
+    <div class="col-md-4 landing-component text-center">
+      <div class="card stat-card text-center">
+        <div class="card-header">
+          SEASON STATS
+        </div>
+        <div class="card-body">
+          <h4 class="season_leader_name"><%= pluralize(@active_season.games_count, 'game') %></h4>
+          <h6>Players per game: <span class="stat"><%= number_with_precision(@active_season.players_per_game, precision: 2) %></span></h6>
+          <h6>Average pot size: <span class="stat"><%= number_to_currency(@active_season.average_pot_size) %></span></h6>
+          <h6>Season total pot: <span class="stat"><%= number_to_currency(@active_season.total_pot, precision: 0) %></span></h6>
+        </div>
+        <div class="card-footer text-muted">
+          <%= link_to "here are the other games", "#", class: 'league__footer-links' %>
+        </div>
+      </div>
+    </div>
   </div>
+
 </div>

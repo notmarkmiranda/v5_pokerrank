@@ -31,5 +31,40 @@ describe Season, type: :model do
 
       expect(Season.where(active:false).include?(season)).to be false
     end
+
+    context 'multiple games & players' do
+      before do
+        game_1, @game_2 = create_list(:game, 2, season: @season)
+        create_list(:player, 10, game: game_1)
+        create_list(:player, 12, game: @game_2)
+        Game.update_all(completed: true)
+      end
+
+      it '#average_pot_size' do
+        expect(@season.average_pot_size).to eq(2425.5)
+      end
+
+      it '#biggest_game' do
+        expect(@season.biggest_game).to eq(@game_2)
+      end
+
+      it '#games_count' do
+        expect(@season.games_count).to eq 2
+      end
+
+      it '#players_per_game' do
+        expect(@season.players_per_game).to eq 11
+      end
+
+      it '#season_number' do
+        expect(@season.season_number).to eq 1
+      end
+    end
+
+
+    it '#season_leader'
+    it '#season_start_date'
+    it '#total_pot'
+
   end
 end

@@ -8,12 +8,20 @@ class Season < ApplicationRecord
   after_commit :deactivate_other_seasons
   default_scope { order(created_at: :asc) }
 
+  def average_pot_size
+    total_pot / games_count.to_f
+  end
+
   def biggest_game
     games.max_by(&:pot_size)
   end
 
   def games_count
     games.count
+  end
+
+  def players_per_game
+    players.count / games_count.to_f
   end
 
   def season_leader(index=0)
@@ -28,6 +36,10 @@ class Season < ApplicationRecord
 
   def season_start_date
     games.sort_by(&:date).first.formatted_date
+  end
+
+  def total_pot
+    games.sum(&:pot_size)
   end
 
   private

@@ -24,11 +24,16 @@ class Participant < ApplicationRecord
     (played_in_by_season(season) / season.games_count.to_f) * 100
   end
 
+  def season_score(season_id)
+    players.joins(:game).where("games.season_id = ?", season_id)
+      .limit(9)
+      .order("score desc")
+      .sum(&:score)
+  end
+
   def self.ordered_by_total_score_by_season(season_id)
-    parts = Participant.joins(:games).where("games.season_id = ?", season_id).uniq
-    parts.map do |part|
-      [part.players.joins(:game).where("games.season_id = ?", season_id).pluck(:score).max(9).reduce(:+), part]
-    end.sort.reverse
+    parts = joins(:games).where("games.season_id = ?", season_id).uniq
+    parts.sort_by { |part| part.season_score(season_id) }.reverse
   end
 
   def won_or_placed_in_by_season(season)
