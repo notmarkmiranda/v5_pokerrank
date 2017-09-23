@@ -7,7 +7,7 @@ task import_mc: [:environment] do
   user = User.find_or_create_by(email: 'markmiranda51@gmail.com')
   user.update(password: ENV['rake_password'])
 
-  league = user.leagues.find_or_create_by(name: "Mike Cassano's Super Fun Leage")
+  league = user.leagues.find_or_create_by(name: "Mike Cassano's Super Fun League")
   puts "Created #{league.name}!"
   season_01 = league.seasons.last
 
