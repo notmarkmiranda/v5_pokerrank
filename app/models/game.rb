@@ -21,6 +21,10 @@ class Game < ApplicationRecord
     date.strftime('%B %e, %Y')
   end
 
+  def players_count
+    players.count
+  end
+
   def players_or_attendees
     completed ? players.count : attendees
   end
@@ -32,11 +36,19 @@ class Game < ApplicationRecord
     end
   end
 
+  def runner_up
+    player_in_place(2)
+  end
+
   def winner
-    players.where(finishing_place: 1).first.participant
+    player_in_place(1)
   end
 
   private
+
+  def player_in_place(place)
+    players.where(finishing_place: place).first.participant
+  end
 
   def total_additional_expense
     x = players.pluck(:additional_expense).compact.reduce(:+)
