@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-4">
+    <ul class="list-group participant_show-season">
+      <li class="list-group-item">
+        <h4><%= @participant.full_name %></h4>
+        <p class="participant_show-stat participant_show-title">Player since <%= @participant.player_since %></p>
+      </li>
+      <li class="list-group-item">
+        <h5>Overall Stats</h5>
+        <p class="participant_show-stat">Played in: <%= "#{@participant.games_count} / #{pluralize(@league.games_count, 'game')} (#{number_to_percentage(@participant.attendance_percentage(@league), precision: 1)})" %></p>
+        <p class="participant_show-stat">Has won: <%= "#{@participant.place_finishes_overall(1)} / #{pluralize(@participant.games_count, 'game')} (#{number_to_percentage(@participant.overall_win_percentage, precision: 1)})" %></p>
+        <p class="participant_show-stat">2nd or 3rd: <%= "#{@participant.place_finishes_overall([2, 3])} / #{pluralize(@participant.games_count, 'game')} (#{number_to_percentage(@participant.overall_place_percentage, precision: 1)})" %></p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-md-7">
+  <% @participant.reversed_seasons.each_with_index do |season, index| %>
+    <ul class="list-group participant_show-season">
+      <li class="list-group-item">
+        <% if season.active %>
+          <h5>current season statistics</h5>
+        <% else %>
+          <h5>season #<%= @seasons.count - index %> statistics</h5>
+        <% end %>
+        <p class="participant_show-stat">
+          <% if season.has_first_game? %>
+            from <%= season.first_game.month_year %>
+          <% end %>
+          <% if season.has_last_game? %>
+            to <%= season.last_game.month_year %>
+          <% end %>
+        </p>
+      </li>
+      <li class="list-group-item">
+        <p class="participant_show-stat">
+          Played in: <%= @participant.played_in_by_season(season) %> / <%= pluralize(season.games_count, 'games') %> (<%= number_to_percentage(@participant.played_in_by_season_percentage(season), precision: 1)  %>)
+        </p>
+        <p class="participant_show-stat">
+          Has won: <%= @participant.place_finishes_by_season(season, 1) %> / <%= @participant.played_in_by_season(season) %> (<%= number_to_percentage(@participant.season_win_percentage(season), precision: 1)  %>)
+        </p>
+        <p class="participant_show-stat">
+          2nd or 3rd: <%= @participant.place_finishes_by_season(season, [2, 3]) %> / <%= @participant.played_in_by_season(season) %> (<%= number_to_percentage(@participant.season_place_percentage(season), precision: 1)  %>)
+        </p>
+        <p class="participant_show-stat">
+          Season Standing: <%= @participant.ordinal_by_season(season) %>
+        </p>
+      </li>
+
+      <% @participant.reversed_games_by_season(season).each do |game| %>
+        <li class="list-group-item">
+          <p class="participant_show-stat participant_show-title">
+            <%= game.formatted_date %>
+          </p>
+          <p class="participant_show-stat">
+            <%= "Finished #{@participant.finishing_place_in_game(game).ordinalize} out of #{pluralize(game.players_count, 'player')}" %>
+          </p>
+          <p class="participant_show-stat">
+            <%= "Score: #{@participant.score_by_game(game)}" %>
+          </p>
+          <% if @participant.first_or_second_in_game?(game) %>
+            <p class="participant_show-stat">
+              <%= "Nemesis: #{@participant.nemesis(game).full_name}" %>
+            </p>
+          <% end %>
+        </li>
+      <% end %>
+
+    </ul>
+  <% end %>
+  </div>
+</div>

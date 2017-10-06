@@ -15,7 +15,7 @@ describe SessionsController, type: :controller do
 
     it 'POST#create - happy path' do
       user = create(:user)
-      post :create, params: { session: { email: user.email, password: 'password' } }
+      post :create, params: { session: { email: user.email, password: 'password' } }, session: { redirect: dashboard_path }
       expect(response).to redirect_to dashboard_path
     end
 

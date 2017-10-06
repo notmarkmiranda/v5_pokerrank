@@ -1,5 +1,6 @@
 class Leagues::Seasons::GamesController < ApplicationController
-  before_action :load_season, only: [:index, :new, :create, :update]
+  before_action :load_league, only: [:show]
+  before_action :load_season, only: [:index, :show, :new, :create, :update]
   before_action :load_game, only: [:show, :edit, :update]
 
   def index
@@ -41,6 +42,10 @@ class Leagues::Seasons::GamesController < ApplicationController
 
   def load_season
     @season = Season.find(params[:season_id])
+  end
+
+  def load_league
+    @league = League.find_by_slug(params[:league_slug])
   end
 
   def game_params

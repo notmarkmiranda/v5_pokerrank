@@ -31,6 +31,10 @@ class League < ApplicationRecord
     games.count
   end
 
+  def ordered_seasons_by_game_date
+    seasons.sort_by { |season| season.games.first.date }
+  end
+
   def participants_count
     players.pluck(:participant_id).uniq.count
   end

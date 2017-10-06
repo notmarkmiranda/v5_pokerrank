@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <% @participants.each_with_index do |participant, index| %>
-    <tr>
+    <tr class="player-row" data-href="<%= league_participant_url(@season.league, participant) %>">
       <th scope="row"><%= index + 1 %></th>
       <td><%= participant.full_name %></td>
       <td><%= participant.played_in_by_season(@season) %></td>
@@ -21,6 +21,6 @@
       <td><%= participant.place_finishes_by_season(@season, [2, 3]) %></td>
       <td><%= number_with_precision(participant.season_score(@season), precision: 2) %></td>
     </tr>
-  <% end %>
+    <% end %>
   </tbody>
 </table>

@@ -1,0 +1,22 @@
+<table class="table table-striped table-responsive table-hover">
+  <thead>
+    <tr>
+      <th>Beginning of Season</th>
+      <th>End of Season</th>
+      <th>Game Count</th>
+      <th>Cumulative Pot</th>
+      <th>Season Leader</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @seasons.each do |season| %>
+      <tr class="season-row" data-href="<%= league_season_url(@league, season) %>">
+        <td><%= season.beginning_of_season %></td>
+        <td><%= season.end_of_season %></td>
+        <td><%= season.games_count %></td>
+        <td><%= number_to_currency(season.total_pot, precision: 0) %></td>
+        <td><%= season.season_leader.full_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,8 +1,12 @@
 class Leagues::SeasonsController < ApplicationController
-  before_action :load_league, only: [:new, :create, :show, :edit, :update]
+  before_action :load_league, only: [:index, :new, :create, :show, :edit, :update]
   before_action :load_season, only: [:show, :edit, :update]
   before_action :verify_league_ownership, only: [:new]
   before_action :verify_season_ownership, only: [:show]
+
+  def index
+    @seasons = @league.seasons.reverse_order
+  end
 
   def show
   end

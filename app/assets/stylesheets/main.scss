@@ -95,3 +95,23 @@ span.stat {
     text-decoration: none;
   }
 }
+
+tr.season-row:hover, tr.game-row:hover, tr.player-row:hover {
+  cursor: pointer;
+}
+
+p.participant_show-stat, p.game_show-stat {
+  text-transform: uppercase;
+  font-size: 0.9em;
+  color: darkgray;
+  margin-bottom: 0px;
+  &.participant_show-title {
+    color: darkgoldenrod;
+    font-weight: 500;
+  }
+}
+
+ul.participant_show-season {
+  margin-bottom: 20px;
+}
+

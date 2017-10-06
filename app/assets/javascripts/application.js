@@ -13,5 +13,20 @@
 //= require rails-ujs
 //= require_tree .
 //= require jquery3
+//= require jquery_ujs
 //= require popper
 //= require bootstrap-sprockets
+
+$(document).ready(function() {
+  $('.game-row').click(function() {
+    window.location = $(this).data('href');
+  });
+
+  $('.season-row').click(function() {
+    window.location = $(this).data('href');
+  });
+
+  $('.player-row').click(function() {
+    window.location = $(this).data('href');
+  });
+});

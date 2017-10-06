@@ -7,21 +7,54 @@ class Season < ApplicationRecord
 
   after_commit :deactivate_other_seasons
   default_scope { order(created_at: :asc) }
+  scope :reverse_order, -> { order(created_at: :desc) }
 
   def average_pot_size
     total_pot / games_count.to_f
+  end
+
+  def beginning_of_season
+    games.first.formatted_date
   end
 
   def biggest_game
     games.max_by(&:pot_size)
   end
 
+  def end_of_season
+    is_active? ? "Season still in progress" : games.last.formatted_date
+  end
+
+  def first_game
+    games.first
+  end
+
   def games_count
     games.count
   end
 
+  def has_first_game?
+    games.any?
+  end
+
+  def has_last_game?
+    games.count > 1 && active == false
+  end
+
+  def last_game
+    games.last
+  end
+
+  def number_by_league(league)
+    league.ordered_seasons_by_game_date.index(self) + 1
+  end
+
   def players_per_game
     players.count / games_count.to_f
+  end
+
+  def reversed_games
+    games.reverse
   end
 
   def season_leader(index=0)
@@ -60,6 +93,10 @@ class Season < ApplicationRecord
       hash[obj.participant_id] = [] if hash[obj.participant_id].nil?
       hash[obj.participant.id] << obj.score
     end
+  end
+
+  def is_active?
+    active == true
   end
 
   def reduce_scores(score_hash)

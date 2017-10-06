@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   resources :leagues, only: [:new, :create, :show, :edit, :update], param: :slug do
     scope module: :leagues do
       get '/games/scheduled', to: 'games/scheduled#index'
+      resources :participants, only: [:show]
       resources :seasons, except: [:destroy] do
         scope module: :seasons do
-          resources :players, only: [:index]
+          resources :players, only: [:index, :show]
           resources :games, except: [:destroy] do
             scope module: :games do
               resource :score, only: [:show]

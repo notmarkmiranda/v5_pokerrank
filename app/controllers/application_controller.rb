@@ -17,7 +17,11 @@ class ApplicationController < ActionController::Base
     redirect_to not_found_path if current_user
   end
 
-  def set_redirect
-    session[:redirect] = request.referrer || root_path
+  def set_redirect(from_root_and_login=false)
+    if from_root_and_login
+      session[:redirect] = dashboard_path
+    else
+      session[:redirect] = request.referrer || root_path
+    end
   end
 end

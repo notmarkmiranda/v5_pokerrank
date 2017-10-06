@@ -1,5 +1,25 @@
-<%= @game.date %>
+<div class="row justify-content-md-center">
+  <div class="col-md-6">
+    <ul class="list-group game_show-season">
+      <li class="list-group-item">
+        <h4><%= @game.formatted_date %></h4>
+        <p class="participant_show-stat participant_show-title">
+          <%= "Game ##{@game.number_by_season(@season)} of Season ##{@season.number_by_league(@league)}" %>
+        </p>
+      </li>
+      <li class="list-group-item">
+        <h5>Statitics & Things</h5>
+        <p class="game_show-stat"><%= pluralize(@game.players_count, 'player') %></p>
+        <p class="game_show-stat"><%= number_to_currency(@game.buy_in, precision: 0) %> buy in</p>
+        <p class="game_show-stat"><%= number_to_currency(@game.pot_size, precision: 0) %> total pot</p>
+      </li>
 
-<%= @game.attendees %>
-
-<%= @game.completed %>
+      <% @game.players_ordered_by_finishing_place.each do |player| %>
+      <li class="list-group-item">
+        <h5><%= "#{player.finishing_place}. #{player.full_name}" %></h5>
+        <p class="game_show-stat">Score: <%= player.score %></p>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
