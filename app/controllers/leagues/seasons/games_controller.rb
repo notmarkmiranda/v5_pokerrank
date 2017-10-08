@@ -1,13 +1,16 @@
 class Leagues::Seasons::GamesController < ApplicationController
-  before_action :load_league, only: [:show]
-  before_action :load_season, only: [:index, :show, :new, :create, :update]
+  before_action :load_league
+  before_action :load_season
   before_action :load_game, only: [:show, :edit, :update]
+  before_action :load_league_and_season_breadcrumbs
 
   def index
+    add_breadcrumb 'Games', league_season_games_path(@league, @season)
     @games = @season.games
   end
 
   def show
+    add_breadcrumb "Game ##{@game.number_by_season(@season)}", league_season_game_path(@league, @season, @game)
   end
 
   def new
@@ -35,6 +38,11 @@ class Leagues::Seasons::GamesController < ApplicationController
   end
 
   private
+
+  def load_league_and_season_breadcrumbs
+    add_breadcrumb @league.name, league_path(@league)
+    add_breadcrumb "Season ##{@season.number_by_league(@league)}", league_season_path(@league, @season)
+  end
 
   def load_game
     @game = Game.find(params[:id])

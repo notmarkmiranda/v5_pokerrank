@@ -3,8 +3,10 @@ class Leagues::SeasonsController < ApplicationController
   before_action :load_season, only: [:show, :edit, :update]
   before_action :verify_league_ownership, only: [:new]
   before_action :verify_season_ownership, only: [:show]
+  before_action :load_breadcrumbs
 
   def index
+    add_breadcrumb "Seasons", league_seasons_path(@league)
     @seasons = @league.seasons.reverse_order
   end
 
@@ -32,7 +34,12 @@ class Leagues::SeasonsController < ApplicationController
     else
     end
   end
+
   private
+
+  def load_breadcrumbs
+    add_breadcrumb @league.name, league_path(@league)
+  end
 
   def load_league
     @league = League.find_by(slug: params[:league_slug])

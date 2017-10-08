@@ -1,5 +1,5 @@
-<div class="row justify-content-md-center">
-  <div class="col-md-6">
+<div class="row">
+  <div class="col-md-4">
     <ul class="list-group game_show-season">
       <li class="list-group-item">
         <h4><%= @game.formatted_date %></h4>
@@ -14,7 +14,15 @@
         <p class="game_show-stat"><%= number_to_currency(@game.pot_size, precision: 0) %> total pot</p>
       </li>
 
-      <% @game.players_ordered_by_finishing_place.each do |player| %>
+
+    </ul>
+  </div>
+  <div class="col-md-8">
+    <ul class="list-group game_show">
+      <li class="list-group-item">
+        <h5>Player Standings</h5>
+      </li>
+    <% @game.players_ordered_by_finishing_place.each do |player| %>
       <li class="list-group-item">
         <h5><%= "#{player.finishing_place}. #{player.full_name}" %></h5>
         <p class="game_show-stat">Score: <%= player.score %></p>

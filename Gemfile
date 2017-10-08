@@ -18,6 +18,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt'
 gem 'font-awesome-rails'
 gem 'figaro'
+gem 'breadcrumbs_on_rails'
 
 group :development, :test do
   gem 'factory_girl_rails'

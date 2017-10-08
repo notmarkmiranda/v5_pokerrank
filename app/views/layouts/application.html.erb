@@ -12,6 +12,7 @@
   <body>
     <%= render 'shared/navbar' %>
     <div class="container main-container">
+      <%= render_breadcrumbs builder: ::Bootstrap4BreadcrumbsBuilder %>
       <%= yield %>
     </div>
   </body>
