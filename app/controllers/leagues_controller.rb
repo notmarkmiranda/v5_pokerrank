@@ -4,6 +4,7 @@ class LeaguesController < ApplicationController
   before_action :verify_ownership, only: [:edit, :update]
 
   def show
+    add_breadcrumb @league.name, league_path(@league)
     @active_season = @league.active_season
     @season_leader = @active_season.season_leader
     @biggest_game  = @active_season.biggest_game

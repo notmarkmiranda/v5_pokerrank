@@ -2,6 +2,11 @@ div.container.main-container {
   margin-top: 25px;
 }
 
+.navbar-brand > span {
+  color: darkgoldenrod;
+  font-weight: bold;
+}
+
 a.custom-link {
   font-size: 12px !important;
   text-transform: uppercase;
