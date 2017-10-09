@@ -32,7 +32,10 @@ class League < ApplicationRecord
   end
 
   def ordered_seasons_by_game_date
-    seasons.sort_by { |season| season.games.first.date }
+    filtered_seasons_with_games.sort_by do |season|
+      next if season.games.empty?
+      season.games.first.date
+    end
   end
 
   def participants_count
@@ -55,6 +58,10 @@ class League < ApplicationRecord
 
   def create_initial_season
     seasons.create(active: true)
+  end
+
+  def filtered_seasons_with_games
+    seasons.select { |season| season.games.any? }
   end
 
   def set_slug
