@@ -46,7 +46,8 @@ class Season < ApplicationRecord
   end
 
   def number_by_league(league)
-    league.ordered_seasons_by_game_date.index(self) + 1
+    number = league.ordered_seasons_by_game_date.index(self)
+    number.nil? ? 0 : number + 1
   end
 
   def players_per_game
