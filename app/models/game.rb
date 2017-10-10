@@ -18,6 +18,7 @@ class Game < ApplicationRecord
   end
 
   def first_place_participant
+    return nil if players.where(finishing_place: 1).nil?
     players.where(finishing_place: 1).first.participant
   end
 

@@ -48,7 +48,7 @@
       </li>
 
       <% @participant.reversed_games_by_season(season).each do |game| %>
-        <li class="list-group-item">
+        <li class="list-group-item list-group-item-action game-row" data-href="<%= league_season_game_path(@league, season, game) %>">
           <p class="participant_show-stat participant_show-title">
             <%= game.formatted_date %>
           </p>

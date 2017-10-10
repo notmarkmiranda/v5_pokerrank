@@ -1,6 +1,46 @@
-<%= @season.league.name %>
-<% if @league.has_active_season? %>
-  <%= link_to "Schedule Game", new_league_season_game_path(@league, @league.active_season), class: 'btn btn-outline-info' %>
-<% else %>
-  <%= button_to "Create New Season", league_seasons_path(@league, season: { active: true }), class: 'btn btn-outline-info new-season-btn', form: { class: 'new-season' } %>
+<% if current_user %>
+  <% if @league.has_active_season? %>
+    <%= link_to "Schedule Game", new_league_season_game_path(@league, @league.active_season), class: 'btn btn-outline-info' %>
+  <% else %>
+    <%= button_to "Create New Season", league_seasons_path(@league, season: { active: true }), class: 'btn btn-outline-info new-season-btn', form: { class: 'new-season' } %>
+  <% end %>
 <% end %>
+
+<div class="row">
+  <div class="col-md-6">
+    <ul class="list-group season_show">
+      <li class="list-group-item">
+        <h4><%= "Season ##{@season.number_by_league(@league)}" %></h4>
+        <p class="season_show-stat season_show-title">
+          <%= @league.name %>
+        </p>
+      </li>
+      <li class="list-group-item">
+        <h5>Statistics & Things</h5>
+        <p class="season_show-stat">from <%= @season.beginning_of_season %></p>
+        <p class="season_show-stat">to <%= @season.end_of_season %></p>
+        <p class="season_show-stat"><%= pluralize(@season.unique_players_count, 'player') %></p>
+        <p class="season_show-stat"><%= number_to_currency(@season.total_pot, precision: 0) %> total pot</p>
+      </li>
+      <% @season.reversed_games.each do |game| %>
+      <li class="list-group-item">
+        <p class="season_show-stat season_show-title">
+          <%= game.formatted_date %>
+        </p>
+        <p class="season_show-stat">
+          <%= pluralize(game.players_count, 'player') %>
+        </p>
+        <p class="season_show-stat">
+          <%= "#{number_to_currency(game.pot_size, precision: 0)} Total Pot" %>
+        </p>
+        <p class="season_show-stat">
+          <%= "Winner: #{game.winner.full_name}" %>
+        </p>
+        <p class="season_show-stat">
+          <%= "Runner Up: #{game.runner_up.full_name}" %>
+        </p>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

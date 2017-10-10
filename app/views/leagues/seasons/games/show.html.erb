@@ -23,7 +23,7 @@
         <h5>Player Standings</h5>
       </li>
     <% @game.players_ordered_by_finishing_place.each do |player| %>
-      <li class="list-group-item">
+      <li class="list-group-item list-group-item-action player-row" data-href="<%= league_participant_path(@league, player.participant) %>">
         <h5><%= "#{player.finishing_place}. #{player.full_name}" %></h5>
         <p class="game_show-stat">Score: <%= player.score %></p>
       </li>

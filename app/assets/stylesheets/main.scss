@@ -101,16 +101,16 @@ span.stat {
   }
 }
 
-tr.season-row:hover, tr.game-row:hover, tr.player-row:hover {
+.season-row:hover, .game-row:hover, .player-row:hover {
   cursor: pointer;
 }
 
-p.participant_show-stat, p.game_show-stat {
+p.participant_show-stat, p.game_show-stat, p.season_show-stat {
   text-transform: uppercase;
   font-size: 0.9em;
   color: darkgray;
   margin-bottom: 0px;
-  &.participant_show-title {
+  &.participant_show-title, &.season_show-title {
     color: darkgoldenrod;
     font-weight: 500;
   }

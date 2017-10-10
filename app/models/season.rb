@@ -22,7 +22,7 @@ class Season < ApplicationRecord
   end
 
   def end_of_season
-    is_active? ? "Season still in progress" : games.last.formatted_date
+    is_active? ? "still in progress" : games.last.formatted_date
   end
 
   def first_game
@@ -55,7 +55,7 @@ class Season < ApplicationRecord
   end
 
   def reversed_games
-    games.reverse
+    games.sort_by(&:date).reverse
   end
 
   def season_leader(index=0)
@@ -74,6 +74,10 @@ class Season < ApplicationRecord
 
   def total_pot
     games.sum(&:pot_size)
+  end
+
+  def unique_players_count
+    players.pluck(:participant_id).uniq.count
   end
 
   private

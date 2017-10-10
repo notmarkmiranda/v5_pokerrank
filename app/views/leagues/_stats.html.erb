@@ -47,7 +47,7 @@
           SEASON STATS
         </div>
         <div class="card-body">
-          <h4 class="season_leader_name"><%= pluralize(@active_season.games_count, 'game') %></h4>
+          <h4 class="season_leader_name"><%= link_to pluralize(@active_season.games_count, 'game'), league_season_path(@league, @active_season) %></h4>
           <h6>Players per game: <span class="stat"><%= number_with_precision(@active_season.players_per_game, precision: 2) %></span></h6>
           <h6>Average pot size: <span class="stat"><%= number_to_currency(@active_season.average_pot_size) %></span></h6>
           <h6>Season total pot: <span class="stat"><%= number_to_currency(@active_season.total_pot, precision: 0) %></span></h6>
