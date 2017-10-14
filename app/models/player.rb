@@ -11,4 +11,8 @@ class Player < ApplicationRecord
   def full_name
     participant.full_name
   end
+
+  def total_expense
+    game.buy_in + additional_expense
+  end
 end

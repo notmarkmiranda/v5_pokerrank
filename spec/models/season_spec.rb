@@ -41,7 +41,7 @@ describe Season, type: :model do
       end
 
       it '#average_pot_size' do
-        expect(@season.average_pot_size).to eq(2425.5)
+        expect(@season.average_pot_size).to eq(2200.0)
       end
 
       it '#biggest_game' do
