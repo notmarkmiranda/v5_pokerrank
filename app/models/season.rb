@@ -14,6 +14,7 @@ class Season < ApplicationRecord
   end
 
   def beginning_of_season
+    return nil if games.empty?
     games.first.formatted_date
   end
 
@@ -22,6 +23,7 @@ class Season < ApplicationRecord
   end
 
   def end_of_season
+		return nil if games.empty?
     is_active? ? "still in progress" : games.last.formatted_date
   end
 
@@ -42,6 +44,7 @@ class Season < ApplicationRecord
   end
 
   def last_game
+    return if games.empty?
     games.last
   end
 
@@ -51,6 +54,7 @@ class Season < ApplicationRecord
   end
 
   def players_per_game
+    return 0 if games_count.zero?
     players.count / games_count.to_f
   end
 
@@ -69,6 +73,7 @@ class Season < ApplicationRecord
   end
 
   def season_start_date
+    return if games.empty?
     games.sort_by(&:date).first.formatted_date
   end
 

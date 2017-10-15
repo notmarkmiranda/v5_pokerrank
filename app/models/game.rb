@@ -30,7 +30,7 @@ class Game < ApplicationRecord
   end
 
   def formatted_date
-    date.strftime('%B%e, %Y')
+    date.strftime('%B %-e, %Y')
   end
 
   def month_year
