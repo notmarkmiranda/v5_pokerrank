@@ -13,7 +13,9 @@ class Participant < ApplicationRecord
   end
 
   def finishing_place_in_game(game)
-    players.where(game_id: game.id).first.finishing_place
+    player = players.where(game_id: game.id)
+    return if player.empty?
+    player.first.finishing_place
   end
 
   def first_or_second_in_game?(game)
@@ -34,11 +36,28 @@ class Participant < ApplicationRecord
   end
 
   def nemesis(game)
-    if finishing_place_in_game(game) == 1
+    case finishing_place_in_game(game)
+    when 1
       game.second_place_participant
-    else
+    when 2
       game.first_place_participant
+    else
+      nil
     end
+  end
+
+  def ordinal_by_season(season)
+    (Participant.ordered_by_total_score_by_season(season.id).index(self) + 1).ordinalize
+  end
+
+  def overall_place_percentage
+    return 0 if games_count.zero?
+    place_finishes_overall([2, 3]) / games_count.to_f * 100
+  end
+
+  def overall_win_percentage
+    return 0 if games_count.zero?
+    place_finishes_overall(1) / games_count.to_f * 100
   end
 
   def place_finishes_by_season(season, place)
@@ -54,22 +73,12 @@ class Participant < ApplicationRecord
   end
 
   def played_in_by_season_percentage(season)
+    return 0 if season.games_count.zero?
     (played_in_by_season(season) / season.games_count.to_f) * 100
   end
 
-  def ordinal_by_season(season)
-    (Participant.ordered_by_total_score_by_season(season.id).index(self) + 1).ordinalize
-  end
-
-  def overall_place_percentage
-    place_finishes_overall([2, 3]) / games_count.to_f * 100
-  end
-
-  def overall_win_percentage
-    place_finishes_overall(1) / games_count.to_f * 100
-  end
-
   def player_since
+    return nil if games.empty?
     games.limit(1).sort_by(&:date).first.month_year
   end
 
@@ -78,6 +87,7 @@ class Participant < ApplicationRecord
   end
 
   def reversed_seasons
+    return nil if games.empty?
     games.collect(&:season).uniq.reverse
   end
 
@@ -93,10 +103,12 @@ class Participant < ApplicationRecord
   end
 
   def season_place_percentage(season)
+    return 0 if played_in_by_season(season).zero?
     place_finishes_by_season(season, [2, 3]) / played_in_by_season(season).to_f * 100
   end
 
   def season_win_percentage(season)
+    return 0 if played_in_by_season(season).zero?
     place_finishes_by_season(season, 1) / played_in_by_season(season).to_f * 100
   end
 

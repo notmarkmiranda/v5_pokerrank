@@ -1,4 +1,5 @@
 class Game < ApplicationRecord
+  include NumberHelper
   validates_presence_of :date
   validates_presence_of :buy_in
   validates_presence_of :season_id
@@ -13,24 +14,30 @@ class Game < ApplicationRecord
     finished_players.any?
   end
 
+  def calculate_scores
+    players.each do |player|
+      player.update(score: score_calculation(player))
+    end
+  end
+
   def finished_players
     players.where.not(finishing_place: nil)
   end
 
   def first_place_participant
-    return nil if players.where(finishing_place: 1).nil?
+    return if players.where(finishing_place: 1).empty?
     players.where(finishing_place: 1).first.participant
   end
 
   def formatted_date
-    date.strftime('%B %e, %Y')
+    date.strftime('%B %-e, %Y')
   end
 
   def month_year
     date.strftime('%B %Y')
   end
 
-  def number_by_season(season)
+  def number_by_season#(season)
     season.games.index(self) + 1
   end
 
@@ -48,8 +55,9 @@ class Game < ApplicationRecord
 
   def pot_size
     if completed
-      (players.count * buy_in) + total_additional_expense
+      (players_count * buy_in) + total_additional_expense
     else
+      attendees * buy_in
     end
   end
 
@@ -72,7 +80,15 @@ class Game < ApplicationRecord
   end
 
   def player_in_place(place)
-    players.where(finishing_place: place).first.participant
+    player = players.where(finishing_place: place).first
+    return if player.nil?
+    player.participant
+  end
+
+  def score_calculation(player)
+    numerator = players_count * buy_in ** 2 / player.total_expense
+    denominator = player.finishing_place + 1
+    ((Math.sqrt(numerator) / denominator) * 100).floor / 100.0
   end
 
   def total_additional_expense

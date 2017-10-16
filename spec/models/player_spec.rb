@@ -29,4 +29,28 @@ describe Player, type: :model do
       expect(player.league).to eq(league)
     end
   end
+
+  context 'methods' do
+    before do
+      participant = create(:participant, first_name: 'Doyle', last_name: 'Brunson')
+      @player = create(:player, participant: participant)
+    end
+
+    context '#full_name' do
+      it 'returns the full name of the participant' do
+        expect(@player.full_name).to eq('Doyle Brunson')
+      end
+    end
+
+    context '#total_expense' do
+      it 'returns the total expense of the player' do
+        expect(@player.total_expense).to eq(200)
+      end
+
+      it 'returns the total expense of the player with an additional_expense' do
+        @player.update(additional_expense: 200)
+        expect(@player.total_expense).to eq(300)
+      end
+    end
+  end
 end

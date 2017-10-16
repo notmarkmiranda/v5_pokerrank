@@ -10,7 +10,7 @@ class Leagues::Seasons::GamesController < ApplicationController
   end
 
   def show
-    add_breadcrumb "Game ##{@game.number_by_season(@season)}", league_season_game_path(@league, @season, @game)
+    add_breadcrumb "Game ##{@game.number_by_season}", league_season_game_path(@league, @season, @game)
   end
 
   def new
