@@ -1,12 +1,24 @@
 language: ruby
 rvm:
-  - "2.4.0"
+- 2.4.0
 env:
+  matrix:
   - DB=postgresql
+  global:
+  - secure: hLUhZzSZVBt2yohuvIoB1e9gdl3qbOPYysr9ICgXlvEit/90psv6/K7FqD4nCVWmGLb2DbDBukybET0RqLTEGJjFnN5kViT/nbi7t4MD2zTi6SwkGlwUlIUl7jHhrc3y3Lxq73mMsBD6l2ngfOkfayzQwG2/BtFcrBewGxG8hqnDa/8+j7yN6x1VQMI/StcC+OUzzVvZCCFz7N4a+lh1WMeiM4fqv9O4HsFBTTgDdp9aAj+qZO7CpP9Pyv2olcik3d8/oELHgSe541utUHrkwfTL5B7Cv3U9q83Y2s5oUPEu804gGRnnstQ3WWC/OUJbZw4Fd5p+dmW3DkYkgOhfHGjKTg91IfiZ2iAOWikE4SAd5JHC4g2ntBYGqhlqdj4DFwJ0gLmplZiwQOCeG/wPqXLXPila/QZobsb8T63ysmx1eascj4U+av8LYynM0e0T73RxxHSjaWPuJr1CUk9II7gV9kLaPh38O1jVrjKMexd0QuUVlo4+aC23Yy/7+d/sRPFbSr8YsfeU8X0uKJ5/qyK/xYK607kjw91TBK8h+wPfynQ2Px24z1F+w8pchUYGq0CJAO19vcHgFoYiWXDgAiqGQH8hs4TsTWTNPy3hInGhWjNdECWPpo1sLCX9reekMNCmchYaPkVxEgDX26cSrJ0aQoE93kwL5df3ATsxKoU=
+  - secure: GvxasSobXwlyuZKNcEgkG8EbjdY0699TuE7/Pz/QFOw2YCaY4MBjoclSbuAQTeAZPgepSge9tdm3n1gp5DrSqbzOy+NZxiquHhPI5PpUsa+5CpczvNDqOCCObH+9uCb7hw+SbmQKOyHJzgGUNJ0jySAs/XDbPH0+v61QtWeI/EWX2EJWcoRIbUMxpDm0Chvlhq8MniRM67+fTzHlKn1UCRqvt/3/0ptSAXoLXezYJGdAh2rraN2D9s51P3ZUCbs7aeVQqILDmi97wEMUJDW2dfIHyx7CqTjjvrtimlacmDYhy/WmqnYdPjuNL95cMlXHLygEWdp1uvOgsPbmRnGwou21B9R3KcSQutOSX9QAeEgwcyhlSZbVzzkIdOG2DwqKUQL4v4VAA+flArIOirS3HIkUbpsgOcWMDoXB2BjPYbPUZ05gKq6ijSfsKX5JrKj+0IorqHdygB4L4/gktQzuCQ3QI4R5RNimC7khziYsg/PKOYiVBGvoWfoRJAYGJ5fJOUE8wWRupeED/m4VN1/KPozwC2jw8Z01k1PPJ3+iNzBW7GPwF5/r5kA2LHZhllE3BF73PYYgshD6G+ZiB4x6PahLVnmqBdkGZSkC7SCMLha5v/aoSfv5fJQ6AaYhNKOPFMbjBYzPmQrCNU8LOy2nFsHA6BL5uKBy4uB9lCNc/ps=
 script:
-  - RAILS_ENV=test bundle exec rake db:create db:migrate --trace
-  - bundle exec rspec
+- RAILS_ENV=test bundle exec rake db:create db:migrate --trace
+- bundle exec rspec
 before_script:
-  - cp config/database.travis.yml config/database.yml
-  - psql -c 'create database travis_ci_test;' -U postgres
-bundler_args: --binstubs=./bundler_stubs
+- cp config/database.travis.yml config/database.yml
+- psql -c 'create database travis_ci_test;' -U postgres
+bundler_args: "--binstubs=./bundler_stubs"
+deploy:
+  provider: heroku
+  api_key:
+    secure: "Xv3sCtOB/i0oyfUiU/LS77pGup22MSsBHgRMiRNuYcMFn8XGfIUqmzTXNnE6UhBxw4TH626ewVC3/56Qv5PkyVLFf+TeHl9G4iIncUN0HCUNYslZzCCJLgJWOC2C9vWuEIVyi/bzc7rvMiWrnhPWBYs1P6HbH4UXuWMH2/Ggkodvt/mXKs0xOwhYHhYNPr2Yab/2v31VvZbhBgLg1FfPHojrmrSqFIViikSLBW9nX0sOotA+doxXYXGb3rmb9p7zIMfr+GStB5SvkHLTCb81IrqOgtEoZLp+8Jk8uYTqtW4KCz9JpViO/ysGutyXTATNSwBoxRjc0v0krXbrnOv9OQW9YzmWxLQrkHBuZQ6h6gGgIDumXmOHyUPz/nKYU0SM2ZCGD0H6a8FBmEPlhhD52ulO6XHENszqLzGXqfJhhw+yW5AUYWiJ/PM4Vv2+h+W5jw0DczQQvFq7mwMfA2Ogm5jz0Jh/Am1CsAaiLd7HwkeR8hYKkax8gfOHptEcTtugTd6nY67xYPE5GUI7YeyWEuHvjgdSVD9WvznpFW5JHuU+nFfhwCvSY78d8F12aSnrG52N95T3Z/gy+9hmPx3ZQtU2hpyFoMm4YJyHiLGurFX7yIGyn+0rkDS33cWQOXczchrofU6vW9tscmZXj0wapU5GjjHv29cPUXQC5h4aQKY="
+  app: poker-season
+  run:
+  - rake db:migrate
+  - restart
